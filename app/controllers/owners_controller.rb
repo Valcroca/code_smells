@@ -1,12 +1,12 @@
 class OwnersController < ApplicationController
   def index
-    @o = Owners.all.sort_by{|onr| onr.first_name }
+    @owners = Owner.all
   end
 
   def show
-    @onr = nil
-    @onr = Owner.find(params[:id])
-    return @onr if @onr
+    @owner = nil
+    @owner = Owner.find(params[:id])
+    return @owner if @owner
   end
 
   def update
@@ -24,11 +24,11 @@ class OwnersController < ApplicationController
   end
 
   def create
-    @owner = Owner.new(owner_perams)
+    @owner = Owner.new(owner_params)
     if @owner.save
-      redirect_to owners_path, success: "Owner with name #{params[:owner][:first_name]} #{params[:owner][:last_name]} was created successfully"
+      redirect_to owners_path, success: "Owner with name #{params[:owner][:first_name]} #{params[:owner][:first_name]} was created successfully"
     else
-      redirect_to owners_path, success: "Owner with name #{params[:owner][:first_neme]} #{params[:owner][:last_name]} was not created successfully"
+      render :new
     end
   end
   
@@ -77,9 +77,7 @@ class OwnersController < ApplicationController
   end
 
   private
-    def op
-      if params[:owner]
+    def owner_params
         params.require(:owner).permit(:first_name, :last_name, :age, :race, :location)
-      end
     end
 end

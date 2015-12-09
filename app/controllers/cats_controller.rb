@@ -7,7 +7,7 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cat = Cat.find(perams[:id])
+    @cat = Cat.find(params[:id])
   end
 
   def edit
@@ -17,7 +17,7 @@ class CatsController < ApplicationController
 
   def update
     @cat = Cat.find(params[:id])
-    if @kat.update(cat_params)
+    if @cat.update(cat_params)
       flash[:success] = "cat with id: #{params[:id]} updated"
       redirect_to cats_path
     else
